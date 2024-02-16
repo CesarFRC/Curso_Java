@@ -5,21 +5,55 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
+        <link rel="stylesheet" type="text/css" href="Estilo"/> <!--Mandamos a hablar la hoja dinamica-->
     </h:head>
     <h:body>
-     <div class="p-grid p-dir-col" style="height: 100vh;">
-        <div class="p-col" style="background-color: #f0f0f0; height: calc(100% / 7);">Header</div>
-        <div class="p-col-grow" style="overflow: auto; background-color: #ffffff; padding: 20px;">
-            <p:panelGrid style="width: 100vh; height: 100vh">  <!-- AQUI INICIA LA PARTE DE LA TABLA -->
+        <p:growl id="mensaje" showSummary="false" showDetail="true" life="3000"/>        <!-- ESTA ETIQUETA NOS SIRVE PARA QUE APARESCA EL MENSAJE DE LOS CAMPOS OBLIGATORIOS
+        ADEMAS DE QUE LOS ATRIBUTOSNOS AYUDAN A QUITAR MAS INFORMACION-->
+
+        
+        <h:form id="frm"> <!-- Es necesario para que haya una interacion con las acciones como los campos requeridos -->
+            <div class="p-grid p-dir-col" style="height: 100vh;">
+               <div class="p-col" style="background-color: #f0f0f0; height: calc(100% / 7);">Header</div>
+            <div class="p-col-grow" style="overflow: auto; background-color: #ffffff; padding: 20px;">
+            <p:panelGrid style="width: 190vh; height: 80vh">  <!-- AQUI INICIA LA PARTE DE LA TABLA -->
                 <p:row>    <!-- AQUI ES UNA FILA AGREGAR -->
                     <p:column> <!-- ESTO ES UNA COLUMNA AGREGAR COLUMNA-->
                         <p:panelGrid style="margin: 0px auto"> <!--Esto es una segunda tabla -->
                             <p:row>  <!-- Aqui agregamos una nueva fila para el centro -->
                                 <p:column> <!--Nueva columna para esta fila-->
-                                    imagen
+                                    <p:graphicImage value="Imj/Candado.png" style="width: 100px; height:100px; margin-top: -200px"/>
                                 </p:column>
                                 <p:column> <!--Nueva columna para esta fila-->
-                                    campos
+                                    <p:panelGrid><!--aqui antes eran los campos-->
+                                        <p:row>
+                                            <p:column>
+                                                <p:panelGrid> <!-- Este grid nos ayuda para los campos -->
+                                                    <p:row>
+                                                        <p:column>
+                                                            <p:outputLabel value="Usuario:"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:inputText style="width: 150px" required="true" requiredMessage="Campo Obligatorio"/>
+                                                        </p:column>
+                                                    </p:row>
+                                                    <p:row>
+                                                        <p:column>
+                                                            <p:outputLabel value="Contraseña:"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:password style="width:150px" required="true" requiredMessage="Campo Obligatorio"/>
+                                                        </p:column>
+                                                    </p:row>
+                                                </p:panelGrid> <!-- aqui terminal lo de los campos -->
+                                            </p:column>
+                                        </p:row>
+                                        <p:row>
+                                            <p:column style="text-align: right">
+                                                <p:commandButton value="Accesar" update="mensaje" /> <!-- Este update lo que hace es checar si hay mensaje-->
+                                            </p:column>
+                                        </p:row>
+                                    </p:panelGrid>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -29,6 +63,8 @@
         </div>
     </div>
 
+        </h:form>
+     
     </h:body>
 </html>
 
