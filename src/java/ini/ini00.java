@@ -1,8 +1,14 @@
 package ini;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import lib.BaseDatos;
 //Estos dos son importantes para que funcione con java server face
 @Named
 @ViewScoped
@@ -29,7 +35,21 @@ public class ini00 implements Serializable {
         this.password = password;
     }
         //Regresamos el metodo accesar a el front
-        public String accesar(){            
+        public String accesar(){
+            //Una pequeña consulta a la base de datos 
+         Connection conexion = BaseDatos.conectar();
+          try{
+              Statement st = conexion.createStatement();
+              String sql = "select usu_clave, usu_password from usuario";
+              ResultSet rs = st.executeQuery(sql);
+              if(rs.next()){
+                  String x = rs.getString("usu_password");
+              }
+          }catch(Throwable e) /* este cacha cualquier tipo de error */{
+                                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,null,e.getMessage()));
+          }finally{
+              BaseDatos.desconectar(conexion);
+          }
         return "ini01";            
         }    
 }

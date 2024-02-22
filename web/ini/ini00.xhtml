@@ -34,7 +34,8 @@
                                                             <p:outputLabel value="Usuario:"/>
                                                         </p:column>
                                                         <p:column>
-                                                            <p:inputText style="width: 150px" required="true" requiredMessage="Campo Obligatorio"/>
+                                                            <!-- Lo que esta con el value en usuario es para que se lige a las variables de java con el backend-->
+                                                            <p:inputText value="#{ini00.usuario}" style="width: 150px" required="true" requiredMessage="Campo Obligatorio"/>
                                                         </p:column>
                                                     </p:row>
                                                     <p:row>
@@ -42,7 +43,7 @@
                                                             <p:outputLabel value="Contraseña:"/>
                                                         </p:column>
                                                         <p:column>
-                                                            <p:password style="width:150px" required="true" requiredMessage="Campo Obligatorio"/>
+                                                            <p:password value="#{ini00.password}" style="width:150px" required="true" requiredMessage="Campo Obligatorio"/>
                                                         </p:column>
                                                     </p:row>
                                                 </p:panelGrid> <!-- aqui terminal lo de los campos -->
@@ -50,7 +51,9 @@
                                         </p:row>
                                         <p:row>
                                             <p:column style="text-align: right">
-                                                <p:commandButton value="Accesar" update="mensaje" /> <!-- Este update lo que hace es checar si hay mensaje-->
+                                                <!-- Esta accion nos ayudara a entrar a la siguiente pagina-->
+                                                <p:commandButton  action="#{ini00.accesar()}" value="Accesar"  update="mensaje" /> 
+                                                <!-- Este update lo que hace es checar si hay mensaje-->
                                             </p:column>
                                         </p:row>
                                     </p:panelGrid>
