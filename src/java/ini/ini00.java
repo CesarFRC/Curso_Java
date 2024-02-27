@@ -44,12 +44,14 @@ public class ini00 implements Serializable {
               ResultSet rs = st.executeQuery(sql);
               if(rs.next()){
                   String x = rs.getString("usu_password");
+   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,null,x));
+
               }
           }catch(Throwable e) /* este cacha cualquier tipo de error */{
                                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,null,e.getMessage()));
           }finally{
               BaseDatos.desconectar(conexion);
           }
-        return "ini01";            
+        return "";            
         }    
 }
