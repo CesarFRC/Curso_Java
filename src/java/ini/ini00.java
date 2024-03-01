@@ -2,8 +2,8 @@ package ini;
 
 import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -37,21 +37,30 @@ public class ini00 implements Serializable {
         //Regresamos el metodo accesar a el front
         public String accesar(){
             //Una pequeña consulta a la base de datos 
+            String pagina = null;
+            
          Connection conexion = BaseDatos.conectar();
           try{
-              Statement st = conexion.createStatement();
-              String sql = "select usu_clave, usu_password from usuario";
-              ResultSet rs = st.executeQuery(sql);
-              if(rs.next()){
-                  String x = rs.getString("usu_password");
-   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,null,x));
-
-              }
+            String sql = "select usu_clave " +
+                         "from usuario " +
+                         "where usu_clave = ? " +
+                         "and usu_password = ? "; //Con este query comparamos los valores de la base de datos
+           PreparedStatement ps = conexion.prepareStatement(sql);
+           ps.setString(1, usuario);
+           ps.setString(2, password);
+           
+           ResultSet  rs = ps.executeQuery();
+           //Esto lo utilizamos el PreparedStatement para que no sea vulnerable el sistema ante hackeos
+           if(rs.next()){
+           pagina = "ini01";
+           }else{
+           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,null,"Usuario o contraseña Incorrecta"));
+           }
           }catch(Throwable e) /* este cacha cualquier tipo de error */{
                                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,null,e.getMessage()));
           }finally{
               BaseDatos.desconectar(conexion);
           }
-        return "";            
+           return pagina;            
         }    
 }
