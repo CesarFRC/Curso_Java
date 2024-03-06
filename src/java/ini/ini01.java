@@ -34,9 +34,9 @@ public class ini01 implements Serializable {
       try{
           //aqui realizamos una consulta a la base de datos
        Statement st = conexion.createStatement();
-       String sql = "select usu_clave, usu_password" +
-                    "from usuario" +
-                    "order by usu_clave";
+       String sql = "select usu_id ,usu_clave, usu_password " +
+                    "from usuario " +
+                    "order by usu_clave ";
           ResultSet rs = st.executeQuery(sql);
           
           //Con esta manera podemos accede la informacion de como se llaman los campos para que haga en automatico
@@ -46,11 +46,13 @@ public class ini01 implements Serializable {
           registros = new ArrayList<>();
           //Es un bucle que nos va filtrando y ordenando la informacion para verla  
           while(rs.next()){
-              Map<String,?> registro = new HashMap<>();
+              Map<String,Object> registro = new HashMap<>();
               //Tenemos fila ahora solo falta los campos para recorrer de la columna
               
               for(int i =1; i<=md.getColumnCount(); i++){
-              
+                       //Como se llama la cosa de tu mapa y su valor
+                       //Con esto ya estamos llenado el registro de nuestros mapas 
+              registro.put(md.getColumnLabel(i).toLowerCase(), rs.getObject(i));
               }
               
                 registros.add(registro);

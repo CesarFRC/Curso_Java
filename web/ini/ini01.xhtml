@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-       xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Segunda pagina</title>
     </h:head>
@@ -12,8 +13,28 @@
             <div class="p-grid p-dir-col" style="height: 100vh;">
                <div class="p-col" style="background-color: #f0f0f0; height: calc(100% / 7);">Header</div>
                <div class="p-col-grow" style="overflow: auto; background-color: #ffffff; padding: 20px;">
-                   <p:dataTable value="#{ini01.registros}" emptyMessage="No hay registros encontrados">
-                       
+                   <!--Con este codigo ya podemos ver los datos en nuestra tabla-->
+                   <p:dataTable value="#{ini01.registros}" var="reg" emptyMessage="No hay registros encontrados"
+                                paginator="true" paginatorPosition="bottom" rows="5" rowsPerPageTemplate="5,50,100,500">
+                       <!--Esto es para la enumeracion y navegacion dentro de la pagina-->
+                       <f:facet name="header">
+                           <p:panelGrid style="width: 100%; height: 100%">
+                               <p:row>
+                                   <p:column style="padding: 0; text-align: left">
+                                       <span class="p-text-bold">Registros:</span>
+                                   </p:column>
+                                   <p:column style="padding: 0; text-align: right">
+                                       <p:commandButton value="agregar"/>
+                                   </p:column>
+                               </p:row>
+                           </p:panelGrid>
+                       </f:facet>         
+                       <p:column headerText="Clave">
+                           <h:outputText value="#{reg.usu_clave}"/>
+                       </p:column>
+                       <p:column headerText="Password">
+                           <h:outputText value="#{reg.usu_password}"/>
+                       </p:column>
                    </p:dataTable>
                </div>
             </div>
