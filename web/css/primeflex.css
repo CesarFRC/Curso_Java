@@ -1,3 +1,61 @@
+.ico-agregar {
+    width: 16px;
+    height: 16px; /* Color del icono */
+    position: relative;
+}
+
+.ico-agregar::before,
+.ico-agregar::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #fff; /* Color del signo más */
+}
+
+.ico-agregar::before {
+    width: 60%;
+    height: 2px; /* Grosor del trazo horizontal */
+    transform: translate(-50%, -50%);
+}
+
+.ico-agregar::after {
+    width: 2px; /* Grosor del trazo vertical */
+    height: 60%;
+    transform: translate(-50%, -50%);
+}
+
+/*Aqui inicia el icono de editar*/
+.ico-editar {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    border: 1px solid #000; /* Borde negro para simular el contorno del icono */
+    border-radius: 50%; /* Forma circular para representar un botón de editar */
+}
+
+.ico-editar::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px; /* Ancho del lápiz */
+    height: 2px; /* Altura del lápiz */
+    background-color: #000; /* Color del lápiz */
+    transform: translate(-50%, -50%) rotate(-45deg); /* Rotación para formar la punta del lápiz */
+}
+
+/*Aqui termina la imagen de estitar*/
+.btn-verde{
+    background-color: #5CB85C !important;
+    border-color: #80C780 !important; 
+}
+
+.ui-widget button.ui-state-hover.btn-verde{
+    background-color: #80C780 !important;
+    border-color: #5C885C !important;
+}
+
 .grid {
   display: flex;
   flex-wrap: wrap;
