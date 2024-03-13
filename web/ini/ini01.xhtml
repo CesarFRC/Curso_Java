@@ -26,21 +26,45 @@
                                        <span class="p-text-bold">Registros: #{fn:length(ini01.registros)}</span>
                                    </p:column>
                                    <p:column style="padding: 0; text-align: right">
-                                       <p:commandButton icon="ico-agregar" styleClass="btn-verde"/>                                                                                
+                                       <!--Mandamos a llamar a la ventana emergente-->                                     
+                                       <p:commandButton icon="ico-agregar" styleClass="btn-verde" onclick="PF('dlg_usu').show()" action="#{ini01.agregar()}" update="frm:tit_usu"/>                                                                                
                                    </p:column>
                                </p:row>
                            </p:panelGrid>
                        </f:facet>
-                       <p:column>
+                       <p:column headerText="Editar" style="width: 10%; text-align: center">
                            <p:commandButton icon="ico-editar"/>
                        </p:column>
-                       <p:column headerText="Clave">
+                       <!-- Aqui utilizamos un filtrador para un tipo buscador -->
+                       <p:column headerText="Clave" style="width: 45%" sortBy="#{reg.usu_clave}"
+                                 filterBy="#{reg.usu_clave}" filterMatchMode="contains">
                            <h:outputText value="#{reg.usu_clave}"/>
                        </p:column>
-                       <p:column headerText="Password">
+                       <p:column headerText="Password" style="width: 45%" sortBy="#{reg.usu_password}"
+                                 filterBy="#{reg.usu_password}" filterMatchMode="contains">
                            <h:outputText value="#{reg.usu_password}"/>
                        </p:column>
+                       <p:column headerText="Borrar" style="width: 10%; text-align: center">
+                            <p:commandButton icon="ico-borrar" style="background-color: red;"/>
+                       </p:column>
                    </p:dataTable>
+                   <!--Esto es una ventana emergente -->
+                   <p:dialog widgetVar="dlg_usu" width="500px" modal="true" appendTo="@(body)">
+                       <f:facet name="header">
+                           <h:outputText id="tit_usu" value="#{ini01.titulo}"/>
+                           
+                       </f:facet>
+                       <!-- Un form interno para que sea aprte del que ya hicimos-->
+                       <h:form id="frm_usu">
+                           <p:panelGrid>
+                               <p:row>
+                                   <p:row>
+                                       <p:commandButton value="guardar" />
+                                   </p:row>
+                               </p:row>
+                           </p:panelGrid>
+                       </h:form>
+                   </p:dialog>
                </div>
             </div>
 
