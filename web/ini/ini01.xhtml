@@ -10,6 +10,9 @@
         <link rel="stylesheet" type="text/css" href="css/primeflex.css"></link>
     </h:head>
     <h:body>
+        <p:growl id="mensaje" showSummary="false" showDetail="true" life="3000"/> 
+          <!-- ESTA ETIQUETA NOS SIRVE PARA QUE APARESCA EL MENSAJE DE LOS CAMPOS OBLIGATORIOS-->
+
         
     <h:form id="frm"> <!-- Es necesario para que haya una interacion con las acciones como los campos requeridos -->
             <div class="p-grid p-dir-col" style="height: 100vh;">
@@ -49,7 +52,7 @@
                        </p:column>
                    </p:dataTable>
                    <!--Esto es una ventana emergente -->
-                   <p:dialog widgetVar="dlg_usu" width="500px" modal="true" appendTo="@(body)">
+                   <p:dialog widgetVar="dlg_usu" width="370px" modal="true" appendTo="@(body)">
                        <f:facet name="header">
                            <h:outputText id="tit_usu" value="#{ini01.titulo}"/>
                            
@@ -58,9 +61,27 @@
                        <h:form id="frm_usu">
                            <p:panelGrid>
                                <p:row>
-                                   <p:row>
-                                       <p:commandButton value="guardar" />
-                                   </p:row>
+                                   <p:column>
+                                       <p:outputLabel value="Usuario* :"/>
+                                   </p:column>
+                                   <p:column>
+                                       <p:inputText style="width: 200px" required="true" requiredMessage="Usuario obligatorio"/>
+                                   </p:column>
+                               </p:row>
+                               <p:row>
+                                   <p:column>
+                                       <p:outputLabel value="Contraseña* :"/>
+                                   </p:column>
+                                   <p:column>
+                                       <p:inputText style="width: 200px" required="true" requiredMessage="Contraseña obligatorio"/>
+                                   </p:column>
+                               </p:row>
+                               <p:row>
+                                   <!--Alineamos la columna ademas de usar colspan para que tome dos columnas-->
+                                   <p:column colspan="2" style="text-align: right">
+                                       <!--Utilizamos el @from para que se suba solo esta informacion de la pantalla emergente-->
+                                       <p:commandButton value="guardar" process="@form" update="mensaje"/>
+                                   </p:column>
                                </p:row>
                            </p:panelGrid>
                        </h:form>
