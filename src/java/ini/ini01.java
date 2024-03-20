@@ -27,6 +27,33 @@ public class ini01 implements Serializable {
         return registros;
     }
     
+    //Ingresamos un get para obtener ese valor
+    String titulo;
+
+    public String getTitulo() {
+        return titulo;
+    }
+    
+    //Le ponemos a los dos su get y su set por que vamos a escribir y leer
+    String usu_clave;
+    String usu_password;
+
+    public String getUsu_clave() {
+        return usu_clave;
+    }
+
+    public void setUsu_clave(String usu_clave) {
+        this.usu_clave = usu_clave;
+    }
+
+    public String getUsu_password() {
+        return usu_password;
+    }
+
+    public void setUsu_password(String usu_password) {
+        this.usu_password = usu_password;
+    }
+    
     //Nos conectamos a la base de datos para hacer un select
   @PostConstruct
   public void init(){
@@ -62,5 +89,13 @@ public class ini01 implements Serializable {
       }finally{
           BaseDatos.desconectar(conexion);
       }
+  }
+  //Un nuevo metodo
+  public void agregar(){
+     titulo="Agregar Usuario";
+  }
+  
+  public void guardar(){
+  
   }
 }
