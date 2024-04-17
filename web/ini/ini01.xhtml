@@ -19,7 +19,7 @@
                <div class="p-col" style="background-color: #f0f0f0; height: calc(100% / 7);">Header</div>
                <div class="p-col-grow" style="overflow: auto; background-color: #ffffff; padding: 20px;">
                    <!--Con este codigo ya podemos ver los datos en nuestra tabla-->
-                   <p:dataTable value="#{ini01.registros}" var="reg" emptyMessage="No hay registros encontrados"
+                   <p:dataTable id="grid_usu" value="#{ini01.registros}" var="reg" emptyMessage="No hay registros encontrados"
                                 paginator="true" paginatorPosition="bottom" rows="5" rowsPerPageTemplate="5,50,100,500">
                        <!--Esto es para la enumeracion y navegacion dentro de la pagina-->
                        <f:facet name="header">
@@ -55,32 +55,31 @@
                    <p:dialog widgetVar="dlg_usu" width="370px" modal="true" appendTo="@(body)">
                        <f:facet name="header">
                            <h:outputText id="tit_usu" value="#{ini01.titulo}"/>
-                           
-                       </f:facet>
+                           </f:facet>
                        <!-- Un form interno para que sea aprte del que ya hicimos-->
                        <h:form id="frm_usu">
                            <p:panelGrid>
                                <p:row>
                                    <p:column>
-                                       <p:outputLabel value="Usuario* :"/>
+                                       <p:outputLabel value="Usuario:"/>
                                    </p:column>
                                    <p:column>
-                                       <p:inputText style="width: 200px" required="true" requiredMessage="Usuario obligatorio"/>
+                                       <p:inputText value="#{ini01.usu_clave}" style="width: 200px" required="true" requiredMessage="Usuario obligatorio"/>
                                    </p:column>
                                </p:row>
                                <p:row>
                                    <p:column>
-                                       <p:outputLabel value="Contraseña* :"/>
+                                       <p:outputLabel value="Contraseña:"/>
                                    </p:column>
                                    <p:column>
-                                       <p:inputText style="width: 200px" required="true" requiredMessage="Contraseña obligatorio"/>
+                                       <p:inputText value="#{ini01.usu_password}" style="width: 200px" required="true" requiredMessage="Contraseña obligatorio"/>
                                    </p:column>
                                </p:row>
                                <p:row>
                                    <!--Alineamos la columna ademas de usar colspan para que tome dos columnas-->
                                    <p:column colspan="2" style="text-align: right">
                                        <!--Utilizamos el @from para que se suba solo esta informacion de la pantalla emergente-->
-                                       <p:commandButton value="guardar" process="@form" update="mensaje"/>
+                                     <p:commandButton value="guardar"   action="#{ini01.guardar()}" update="frm_usu mensaje"/>
                                    </p:column>
                                </p:row>
                            </p:panelGrid>
@@ -93,4 +92,3 @@
     </h:body>
 
 </html>
-

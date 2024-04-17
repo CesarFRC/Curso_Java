@@ -15,6 +15,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import org.primefaces.PrimeFaces;
 
 @Named
 @ViewScoped
@@ -35,6 +36,7 @@ public class ini01 implements Serializable {
     }
     
     //Le ponemos a los dos su get y su set por que vamos a escribir y leer
+    String usu_id;
     String usu_clave;
     String usu_password;
 
@@ -57,7 +59,11 @@ public class ini01 implements Serializable {
     //Nos conectamos a la base de datos para hacer un select
   @PostConstruct
   public void init(){
-      Connection conexion = BaseDatos.conectar();
+     datosGrid();
+  }
+  
+  public void datosGrid(){
+   Connection conexion = BaseDatos.conectar();
       try{
           //aqui realizamos una consulta a la base de datos
        Statement st = conexion.createStatement();
@@ -93,9 +99,38 @@ public class ini01 implements Serializable {
   //Un nuevo metodo
   public void agregar(){
      titulo="Agregar Usuario";
+     
+     usu_id = "";
   }
   
   public void guardar(){
-  
+      
+          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,null,"guardado"));
+
+           Connection conexion = BaseDatos.conectar();
+           try{
+           Statement st = conexion.createStatement();
+           String sql = "";
+           if(usu_id.equals("")){//nuevo
+            sql = "INSERT INTO usuario (usu_clave, usu_password) VALUES ('" + usu_clave + "', '" + usu_password + "')";
+           }
+           else{//editar
+           }
+           
+           st.executeUpdate(sql);
+           }catch(Throwable e){
+              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,null,e.getMessage()));  
+           }
+           finally{
+            BaseDatos.desconectar(conexion);
+           }
+           
+           //Agregamos a la aray los nuevos registros que vamos poniendo
+           datosGrid();
+           PrimeFaces.current().ajax().update("frm:grid_usu");
+           PrimeFaces.current().executeScript("PF('dlg_usu').hide()");
+
   }
+  
 }
+

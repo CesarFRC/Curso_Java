@@ -46,6 +46,20 @@
 }
 
 /*Aqui termina la imagen de estitar*/
+/* Estilo base del botón */
+
+.ico-borrar{
+    width: 70%; /* Ancho de la línea */
+    height: 5px; /* Grosor de la línea */
+    background-color: white; /* Color de la línea */
+    transform: translateY(90%) rotate(-45deg); /* Mueve la línea hacia abajo y la rota */
+    position: relative; /* Establece la posición relativa para controlar la ubicación */
+    top: 50%; /* Centra verticalmente la línea */
+}
+
+
+
+    
 .btn-verde{
     background-color: #5CB85C !important;
     border-color: #80C780 !important; 
